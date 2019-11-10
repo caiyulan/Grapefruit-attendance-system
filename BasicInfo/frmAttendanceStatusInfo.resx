@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="StatusId.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="StatusName.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="bindingNavigatorMoveNextItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -129,7 +135,7 @@
 </value>
   </data>
   <metadata name="bindingNavigator1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>19, 9</value>
+    <value>17, 17</value>
   </metadata>
   <data name="bindingNavigatorMoveFirstItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -165,84 +171,47 @@
         x8MAAAAASUVORK5CYII=
 </value>
   </data>
-  <metadata name="AttendanceId.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="SchoolYear.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Semester.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Week.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Weekday.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="SchoolTime.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="CourseName.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="StuId.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="StatusId.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="StatusName.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Memo.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="AttendanceId.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="SchoolYear.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Semester.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Week.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Weekday.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="SchoolTime.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="CourseName.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="StuId.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="StatusName.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Memo.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>44</value>
+    <value>43</value>
   </metadata>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        AAABAAEAICAQAAAAAADoAgAAFgAAACgAAAAgAAAAQAAAAAEABAAAAAAAgAIAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAACAAACAAAAAgIAAgAAAAIAAgACAgAAAwMDAAICAgAAAAP8AAP8AAAD//wD/AAAA/wD/AP//
-        AAD///8AAAAAAAAAAAAAAAAAAAAAAAAACLcAAAAAAAAAN4AAAAAAAAALcAMzMzMwA3AAAAAAAAAAAAcw
-        AAAAA3AAAAAAAAAAAIAwB3fM9/ADCAAAAAAAAAgDB39/zH9/cDCAAAAAAACAMHTH9/f//M8DCAAAAAAA
-        Bwd8z3////zP8DAAAAAACLB39/f///////8DgAAAAABwTH9////////MAwAAAACLB8z3////f///zPA4
-        AAAABwd/f///8H/////wMAAAAAsH9/f///B3d3f/8DAAAAAHBM9///AJAAAP/MAwAAAACwTH9///8H//
-        //zAMAAAAAcHf3////B/////8DAAAAALB/f3///wf/////AwAAAAhwd8z3//8H///8zwOAAAAACwdMf/
-        //B////EAwAAAAAIcHd/f//wf///9wOAAAAAAAsHfMf/8P/8z3AwAAAAAACAsHTPf3///EcDCAAAAAAA
-        CAsHd3dEd3dwMIAAAAAAAACAsAd3RHdwAwgAAAAAAACACAtwAAAAAzCACAAAAAAIMAAAC7u3tzAACAOA
-        AAAAAHNwgAAAAAAACAMzAAAAAAA3u7CAAAAACAczMwAAAAAIf3u3MAAAAAu7dzeAAAAAAAv7u3MMAEC7
-        t/twAAAAAAAID7cwDsRAC/+wgAAAAAAAAAgAAAAAAAAAgAAAAAD4//x/+GAYf/wAAP/+AAH//AAA//gA
-        AH/wAAA/8AAAP+AAAB/gAAAfwAAAD8AAAA/AAAAPwAAAD8AAAA/AAAAPwAAAD8AAAA/gAAAf4AAAH/AA
-        AD/wAAA/+AAAf/wAAP/2AAG/4YAGH+BgGB/gHOAf4AzAH/AAAD/4CEB//h/h/w==
+        AAABAAEAGBgAAAEACADIBgAAFgAAACgAAAAYAAAAMAAAAAEACAAAAAAAQAIAAAAAAAAAAAAAAAEAAAAB
+        AAAAAAAAkl42AJRbOwCSXDkAlF05AJtkPwDeewcAz3knAJpjQACdaEUAm2JNAJxjTQCbY1AAo2hBAKFo
+        RQCgZ1IAp2tTAKJrVgCmbVcAqm5WAKRsWQCpblgAp3BVAK5wWQCsdVsArnpZALBzWQCudmAArnlkALJ7
+        YACzemUAtn5lAO+GAADxhgAA8YgAAP2eIwD+niUA/aAjAP2gJQC8gl4AvIRnALmBaAC9hWgAvYVsAL6J
+        aQC5im8AuoVxALuMcQC8inQA2J5dAPOyXQDBh2EAxYVmAMKJYgDFiWIAxYhkAMiKYgDAhmoAyY5pANSN
+        agDYjmwAy5BoANKSbwDAj3UAwJJzAMaRcgDBkHYAxJF3AMOVdgDLmXUAzZp5ANSXdwDblXYA1ph0ANiZ
+        cwDamHUA2p13ANqWeQDYnXkA3J56ANmefgDcpG0A66xiAP6+agD7vm4A/r5tAOu0dwDqsnkA9btzAPq+
+        cgD+vnAA+b52AP2+dQDzv3wA+r54AP2/eQD+wGoA/sBsAP7AcQD5wHQA/cB0APbGfgD6wHgA+MF+APnG
+        fgD8xn8A9sh+APjIfgDGl4IAxZqHAMmZgQDKnYAAzJ2BAMqdiADMn4oAz6eOANmiggDapIEA3KSBAN6i
+        hADcpoUA26iHANuljADXqIkA2qqIAN6qiQDfrIsA3auPAN+ujgDRq5YA1q2UANupkgDTq5kA37mZAOCj
+        gwDgooQA4KqLAOGujgDkrY8A5a6QAOGykgDjs5cA47WYAOa2mgDhtpwA6LaYAOa4mQDmvJ8A6b2eANa1
+        ogDjuqQA5LukAOO9pQDovaEA6b2mAOe+qAD3xoAA+cWBAPzFgAD6xoQA/cWEAPnIgAD8yIIA/9GKAP/T
+        jADrw5MA6sCVAP7ZmwDowqYA7sGkAObFqwDhwq0A5MOvAOrBqADuwKgA7cerAOrCrwDqxa4A782vAPLG
+        rwDzyawA/96pAOfEsADpw7EA7ce1AO3LswDwxbAA8sqxAPHMsgDyz7sA79C5APHQvAD11b0A+tW7APjU
+        vAD+5LYA/+e/AOvazQDs2cwA8dPAAPTWygD22coA+t7JAPzeygD428wA+9/OAPbf0wD139QA+t3UAPvi
+        zgD+6skA9uDUAP/n0wD759YA/+nTAP7o1QD25toA9eXdAP7q2QD7694A/u3cAPzq4AD+8uAA/vThAP/z
+        5QD+9ekA//ftAPr47gD69vIA/fbyAP729AD7+PMA//ryAP/69gD+/PUA/v75APv//wD+/v4AAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAD///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADgVExU4AAAAAAAAAAAAAABSAwMD
+        AzEAAByQhZAdAAAAAAAAAAAAAAAzMiYmBgMAABuIPogbAAAAGhgAAAAAAAA4oyQmIQMYFYhHSkeDGBUV
+        epgQAAAAAAAzoyQkIQNOUFBKTk5OTk5HTk6bGAAAAAA4pyYkIQOHfLHM2s29kIaHh3WCEwAAAAA0tSYm
+        IQGx39/f39/f38eIfIcYAAAAAAA4wyQkIQPa2trN2trN2t6+gIgYAAAAAAA4xCQkIgPNyrEwLEC2zcra
+        mYwsAAAAAAAz0iQkIAPBmChaWlssmMHBv5CMHx9FAAAzxCQmIQO7MF9bZlpbMLu7v6mTmbguAAA40iQk
+        IQOpEGZaX19bFrGpwamoqagwAAA4WCYkBwOQGF9fXV9bEIyPv7Sxr7NuAABXLO3YGYeIRRGdnZ0PQIuI
+        zK+4QEN7AABXLO3YGZCGdzQPDwoshoa63c1yAAAAUQ4OqO3YRggICDRHR0hNSIvi39pAAAAACazTz8/P
+        etPPtgM7Ozw7me3p6dpAAAAAJ+3m5+fnse3n5w7Itsjn7e3t6eLaQwAAJ+3n5ufnxu3n5w7t7e3t7enp
+        6enabAAAZkHt7e3tcu3txift7e3ilUZv6d9tAAAAAFtBPUE9VkE9QUDt7e1GAAAAbnEAAAAAAAAAAAAA
+        AAAAAG7t7e1uAAAAAAAAAAAAAAAAAAAAAAAAAKaCgYSmAAAAAAAAAAAA////AP/B/wDAwf8AwMHPAMAA
+        BwDAAAMAwAADAMAABwDAAAcAwAAHAMAAAADAAAAAwAAAAMAAAADAAAAAwAAHAAAABwAAAAcAAAADAAAA
+        AwAAAAcAgAHPAP/B/wD/wf8A
 </value>
   </data>
 </root>

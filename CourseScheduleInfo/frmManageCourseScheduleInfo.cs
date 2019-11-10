@@ -8,9 +8,9 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using StudentAttendanceMgr.CommonClass;
 
-namespace StudentAttendanceMgr.StudentAttendance
+namespace StudentAttendanceMgr.CourseScheduleInfo
 {
-    public partial class frmManageAttendanceInfo : Form
+    public partial class frmManageCourseScheduleInfo : Form
     {
         private int AddOrEdit = 0; //标记是添加或修改了记录，0表示添加，1表示修改
 
@@ -26,7 +26,7 @@ namespace StudentAttendanceMgr.StudentAttendance
         //记录编号
         private int RecordId = 0; 
         
-        public frmManageAttendanceInfo()
+        public frmManageCourseScheduleInfo()
         {
             InitializeComponent();
         }
@@ -56,24 +56,74 @@ namespace StudentAttendanceMgr.StudentAttendance
             }
         }
 
-        // 填充出勤状态组合框
-        private void FillAttendanceStatusComboBox()
+        // 填充上课教师组合框
+        private void FillTeacherNameComboBox()
         {
             try
             {
                 //查询记录用的sql语句
-                string selectSql = "select StatusId, StatusName from AttendanceStatus order by StatusId asc";
+                string selectSql = "select TeacherId, TeacherName from Teachers order by TeacherId asc";
 
                 //创建数据集
-                DataSet dsAttendanceStatus = new DataSet("Attendance");
+                DataSet dsTeachers = new DataSet("Attendance");
 
                 //填充数据集
-                dsAttendanceStatus = DBHelper.getDataSet(selectSql, "AttendanceStatus");
+                dsTeachers = DBHelper.getDataSet(selectSql, "Teachers");
 
-                //指定“出勤状态组合框”的数据源
-                this.cboAttendanceStatus.DataSource = dsAttendanceStatus.Tables["AttendanceStatus"];
-                this.cboAttendanceStatus.DisplayMember = "StatusName";
-                this.cboAttendanceStatus.ValueMember = "StatusId";
+                //指定“上课教师组合框”的数据源
+                this.cboTeacherName.DataSource = dsTeachers.Tables["Teachers"];
+                this.cboTeacherName.DisplayMember = "TeacherName";
+                this.cboTeacherName.ValueMember = "TeacherId";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "操作失败", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // 填充上课班级组合框
+        private void FillClassNameComboBox()
+        {
+            try
+            {
+                //查询记录用的sql语句
+                string selectSql = "select ClassId, ClassName from Classes order by ClassId asc";
+
+                //创建数据集
+                DataSet dsClasses = new DataSet("Attendance");
+
+                //填充数据集
+                dsClasses = DBHelper.getDataSet(selectSql, "Classes");
+
+                //指定“上课班级组合框”的数据源
+                this.cboClassName.DataSource = dsClasses.Tables["Classes"];
+                this.cboClassName.DisplayMember = "ClassName";
+                this.cboClassName.ValueMember = "ClassId";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "操作失败", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // 填充上课地点组合框
+        private void FillRoomNameComboBox()
+        {
+            try
+            {
+                //查询记录用的sql语句
+                string selectSql = "select RoomId, RoomName from ClassRooms order by RoomId asc";
+
+                //创建数据集
+                DataSet dsClassRooms = new DataSet("Attendance");
+
+                //填充数据集
+                dsClassRooms = DBHelper.getDataSet(selectSql, "ClassRooms");
+
+                //指定“上课班级组合框”的数据源
+                this.cboRoomName.DataSource = dsClassRooms.Tables["ClassRooms"];
+                this.cboRoomName.DisplayMember = "RoomName";
+                this.cboRoomName.ValueMember = "RoomId";
             }
             catch (Exception ex)
             {
@@ -87,19 +137,19 @@ namespace StudentAttendanceMgr.StudentAttendance
             try
             {
                 //查询记录用的SQL语句
-                string selectSql = "select AttendanceId, SchoolYear, Semester, Week, Weekday, SchoolTime, CourseName, StuId, StatusName, Memo " +
-                    "from StudentAttendances sa, Courses c, AttendanceStatus status " +
-                    "where sa.CourseId = c.CourseId and sa.StatusId = status.StatusId " +
-                    "order by SchoolYear desc, Semester desc, CourseName asc, StatusName asc";
+                string selectSql = "select ScheduleId, cs.CourseId, CourseName, TeacherName, ClassName, RoomName, SchoolYear, Semester, Weekday, SchoolTime, StartWeek, EndWeek " +
+                    "from CourseSchedules cs, Courses co, Teachers t, Classes cls, ClassRooms cr " +
+                    "where cs.CourseId = co.CourseId and cs.TeacherId = t.TeacherId and cs.ClassId = cls.ClassId and cs.RoomId = cr.RoomId " +
+                    "order by cs.CourseId asc, TeacherName asc, ClassName asc, SchoolYear asc, Semester asc";
 
                 //清空数据集
-                dataSet.Tables["StudentAttendances"].Clear();
+                dataSet.Tables["CourseSchedules"].Clear();
 
                 //填充数据集
-                dataSet = DBHelper.getDataSet(selectSql, "StudentAttendances");
+                dataSet = DBHelper.getDataSet(selectSql, "CourseSchedules");
 
                 //指定 DataView 的基础表
-                dataView.Table = dataSet.Tables["StudentAttendances"];
+                dataView.Table = dataSet.Tables["CourseSchedules"];
             }
             catch (Exception ex)
             {
@@ -110,49 +160,76 @@ namespace StudentAttendanceMgr.StudentAttendance
         // 清空文本框
         private void ClearTextBox()
         {
+            this.cboCourseName.Text = "";
+            this.cboTeacherName.Text = "";
+            this.cboClassName.Text = "";
+            this.cboRoomName.Text = "";
             this.cboSchoolYear.Text = "";
             this.cboSemester.Text = "";
-            this.cboWeek.Text = "";
             this.cboWeekday.Text = "";
             this.cboSchoolTime.Text = "";
-            this.cboCourseName.Text = "";
-            this.txtStuId.Text = "";
-            this.cboAttendanceStatus.Text = "";
-            this.txtMemo.Text = "";
+            this.cboStartWeek.Text = "";
+            this.cboEndWeek.Text = "";
         }
 
         // 锁定文本框，不允许用户输入
         private void LockedTextBox()
         {
+            this.cboCourseName.Enabled = false;
+            this.cboTeacherName.Enabled = false;
+            this.cboClassName.Enabled = false;
+            this.cboRoomName.Enabled = false;
             this.cboSchoolYear.Enabled = false;
             this.cboSemester.Enabled = false;
-            this.cboWeek.Enabled = false;
             this.cboWeekday.Enabled = false;
             this.cboSchoolTime.Enabled = false;
-            this.cboCourseName.Enabled = false;
-            this.txtStuId.Enabled = false;
-            this.cboAttendanceStatus.Enabled = false;
-            this.txtMemo.Enabled = false;
+            this.cboStartWeek.Enabled = false;
+            this.cboEndWeek.Enabled = false;
         }
 
         // 解除锁定，允许用户输入
         private void UnLockedTextBox()
         {
+            this.cboCourseName.Enabled = true;
+            this.cboTeacherName.Enabled = true;
+            this.cboClassName.Enabled = true;
+            this.cboRoomName.Enabled = true;
             this.cboSchoolYear.Enabled = true;
             this.cboSemester.Enabled = true;
-            this.cboWeek.Enabled = true;
             this.cboWeekday.Enabled = true;
             this.cboSchoolTime.Enabled = true;
-            this.cboCourseName.Enabled = true;
-            this.txtStuId.Enabled = true;
-            this.cboAttendanceStatus.Enabled = true;
-            this.txtMemo.Enabled = true;
+            this.cboStartWeek.Enabled = true;
+            this.cboEndWeek.Enabled = true;
         }
 
         // 验证用户输入
         private bool ValidateInput()
         {
-            if (this.cboSchoolYear.Text.Trim() == "")
+            if (this.cboCourseName.Text.Trim() == "")
+            {
+                MessageBox.Show("请输入课程名称", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.cboCourseName.Focus();
+                return false;
+            }
+            else if (this.cboTeacherName.Text.Trim() == "")
+            {
+                MessageBox.Show("请输入上课教师", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.cboTeacherName.Focus();
+                return false;
+            }
+            else if (this.cboClassName.Text.Trim() == "")
+            {
+                MessageBox.Show("请输入上课班级", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.cboClassName.Focus();
+                return false;
+            }
+            else if (this.cboRoomName.Text.Trim() == "")
+            {
+                MessageBox.Show("请输入上课地点", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.cboRoomName.Focus();
+                return false;
+            }
+            else if (this.cboSchoolYear.Text.Trim() == "")
             {
                 MessageBox.Show("请输入学年", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.cboSchoolYear.Focus();
@@ -162,12 +239,6 @@ namespace StudentAttendanceMgr.StudentAttendance
             {
                 MessageBox.Show("请输入学期", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.cboSemester.Focus();
-                return false;
-            }
-            else if (this.cboWeek.Text.Trim() == "")
-            {
-                MessageBox.Show("请输入上课周次", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.cboWeek.Focus();
                 return false;
             }
             else if (this.cboWeekday.Text.Trim() == "")
@@ -182,36 +253,16 @@ namespace StudentAttendanceMgr.StudentAttendance
                 this.cboSchoolTime.Focus();
                 return false;
             }
-            else if (this.cboCourseName.Text.Trim() == "")
+            else if (this.cboStartWeek.Text.Trim() == "")
             {
-                MessageBox.Show("请输入课程名称", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.cboCourseName.Focus();
+                MessageBox.Show("请输入起始周", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.cboStartWeek.Focus();
                 return false;
             }
-            else if (this.txtStuId.Text.Trim() == "")
+            else if (this.cboEndWeek.Text.Trim() == "")
             {
-                MessageBox.Show("请输入学号", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.txtStuId.Focus();
-                return false;
-            }
-            else if (this.cboAttendanceStatus.Text.Trim() == "")
-            {
-                MessageBox.Show("请输入出勤状态", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.cboAttendanceStatus.Focus();
-                return false;
-            }
-
-            //检查后台数据库的 Students 表中是否存在输入的学号
-            string selectSql = String.Format("select count(*) from Students where StuId = '{0}' ", this.txtStuId.Text);
-
-            //执行查询操作
-            int result = (int)DBHelper.executeScalar(selectSql);
-
-            //如果学号不存在，则提示用户重新输入，并终止操作。
-            if (result <= 0)
-            {
-                MessageBox.Show("该学号不存在，请重新输入！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.txtStuId.Focus();
+                MessageBox.Show("请输入结束周", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.cboEndWeek.Focus();
                 return false;
             }
 
@@ -219,39 +270,45 @@ namespace StudentAttendanceMgr.StudentAttendance
         }
 
         // 窗体加载
-        private void frmManageAttendanceInfo_Load(object sender, EventArgs e)
+        private void frmManageCourseScheduleInfo_Load(object sender, EventArgs e)
         {
             // 初始化课程名称组合框
             this.FillCourseNameComboBox();
 
-            // 初始化出勤状态组合框
-            this.FillAttendanceStatusComboBox();
+            // 初始化上课教师组合框
+            this.FillTeacherNameComboBox();
+
+            // 初始化上课班级组合框
+            this.FillClassNameComboBox();
+
+            // 初始化上课地点组合框
+            this.FillRoomNameComboBox();
 
             try
             {
                 //查询记录用的SQL语句
-                string selectSql = "select AttendanceId, SchoolYear, Semester, Week, Weekday, SchoolTime, CourseName, StuId, StatusName, Memo " +
-                    "from StudentAttendances sa, Courses c, AttendanceStatus status " +
-                    "where sa.CourseId = c.CourseId and sa.StatusId = status.StatusId " +
-                    "order by SchoolYear desc, Semester desc, CourseName asc, StatusName asc";
+                string selectSql = "select ScheduleId, cs.CourseId, CourseName, TeacherName, ClassName, RoomName, SchoolYear, Semester, Weekday, SchoolTime, StartWeek, EndWeek " +
+                    "from CourseSchedules cs, Courses co, Teachers t, Classes cls, ClassRooms cr " +
+                    "where cs.CourseId = co.CourseId and cs.TeacherId = t.TeacherId and cs.ClassId = cls.ClassId and cs.RoomId = cr.RoomId " +
+                    "order by cs.CourseId asc, TeacherName asc, ClassName asc, SchoolYear asc, Semester asc";
 
                 //创建数据集 DataSet 对象
                 dataSet = new DataSet("Attendance");
 
                 //填充数据集
-                dataSet = DBHelper.getDataSet(selectSql, "StudentAttendances");
+                dataSet = DBHelper.getDataSet(selectSql, "CourseSchedules");
 
                 //创建数据视图 DataView 对象
                 dataView = new DataView();
 
                 //指定 DataView 的基础表
-                dataView.Table = dataSet.Tables["StudentAttendances"];
+                dataView.Table = dataSet.Tables["CourseSchedules"];
 
                 //创建 BindingSource 对象，将 BindingSource 组件绑定到数据视图。
                 bindSource = new BindingSource(dataView, "");
 
                 //建立复杂数据绑定，将 DataGridView 控件绑定到 BindingSource组件。
-                this.dgvAttendanceInfo.DataSource = bindSource;
+                this.dgvCourseSchedule.DataSource = bindSource;
 
                 //将 BindingNavigator 控件和 BindingSource 组件关联起来
                 this.bindingNavigator1.BindingSource = bindSource;
@@ -269,26 +326,27 @@ namespace StudentAttendanceMgr.StudentAttendance
         }
 
         // 在DataGridView控件选中某一行时，将该行各列的值显示在各文本框控件中。
-        private void dgvAttendanceInfo_SelectionChanged(object sender, EventArgs e)
+        private void dgvCourseSchedule_SelectionChanged(object sender, EventArgs e)
         {
             // 判断当前DataGridView控件中是否有记录，如果没有，则终止操作。
-            if (this.dgvAttendanceInfo.Rows.Count <= 0)
+            if (this.dgvCourseSchedule.Rows.Count <= 0)
             {
                 return;
             }
 
             //将 DataGridView 控件中当前行各列的值显示在各文本框控件中
-            //显示该行的出勤信息
-            this.RecordId = (int)this.dgvAttendanceInfo.CurrentRow.Cells["AttendanceId"].Value;   //获取记录编号，用于修改和删除操作。
-            this.cboSchoolYear.Text = this.dgvAttendanceInfo.CurrentRow.Cells["SchoolYear"].Value.ToString();
-            this.cboSemester.Text = this.dgvAttendanceInfo.CurrentRow.Cells["Semester"].Value.ToString();
-            this.cboWeek.Text = this.dgvAttendanceInfo.CurrentRow.Cells["Week"].Value.ToString();
-            this.cboWeekday.Text = this.dgvAttendanceInfo.CurrentRow.Cells["Weekday"].Value.ToString();
-            this.cboSchoolTime.Text = this.dgvAttendanceInfo.CurrentRow.Cells["SchoolTime"].Value.ToString();
-            this.cboCourseName.Text = this.dgvAttendanceInfo.CurrentRow.Cells["CourseName"].Value.ToString();
-            this.txtStuId.Text = this.dgvAttendanceInfo.CurrentRow.Cells["StuId"].Value.ToString();
-            this.cboAttendanceStatus.Text = this.dgvAttendanceInfo.CurrentRow.Cells["StatusName"].Value.ToString();
-            this.txtMemo.Text = this.dgvAttendanceInfo.CurrentRow.Cells["Memo"].Value.ToString();
+            //显示该行的课表信息
+            this.RecordId = (int)this.dgvCourseSchedule.CurrentRow.Cells["ScheduleId"].Value;   //获取记录编号，用于修改和删除操作。
+            this.cboCourseName.Text = this.dgvCourseSchedule.CurrentRow.Cells["CourseName"].Value.ToString();
+            this.cboTeacherName.Text = this.dgvCourseSchedule.CurrentRow.Cells["TeacherName"].Value.ToString();
+            this.cboClassName.Text = this.dgvCourseSchedule.CurrentRow.Cells["ClassName"].Value.ToString();
+            this.cboRoomName.Text = this.dgvCourseSchedule.CurrentRow.Cells["RoomName"].Value.ToString();
+            this.cboSchoolYear.Text = this.dgvCourseSchedule.CurrentRow.Cells["SchoolYear"].Value.ToString();
+            this.cboSemester.Text = this.dgvCourseSchedule.CurrentRow.Cells["Semester"].Value.ToString();
+            this.cboWeekday.Text = this.dgvCourseSchedule.CurrentRow.Cells["Weekday"].Value.ToString();
+            this.cboSchoolTime.Text = this.dgvCourseSchedule.CurrentRow.Cells["SchoolTime"].Value.ToString();
+            this.cboStartWeek.Text = this.dgvCourseSchedule.CurrentRow.Cells["StartWeek"].Value.ToString();
+            this.cboEndWeek.Text = this.dgvCourseSchedule.CurrentRow.Cells["EndWeek"].Value.ToString();
         }
 
         // 添加
@@ -305,7 +363,7 @@ namespace StudentAttendanceMgr.StudentAttendance
             this.btnSave.Enabled = true;   //启用“保存”按钮
             this.btnCancel.Enabled = true; //启用“取消”按钮
 
-            this.cboSchoolYear.Focus();
+            this.cboCourseName.Focus();
         }
 
         // 修改
@@ -319,13 +377,13 @@ namespace StudentAttendanceMgr.StudentAttendance
             this.btnSave.Enabled = true;    //启用“保存”按钮
             this.btnCancel.Enabled = true;  //启用“取消”按钮
 
-            this.cboSchoolYear.Focus();
+            this.cboCourseName.Focus();
         }
 
         // 删除
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (this.dgvAttendanceInfo.RowCount <= 0)
+            if (this.dgvCourseSchedule.RowCount <= 0)
             {
                 MessageBox.Show("没有记录可以删除！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
@@ -334,7 +392,7 @@ namespace StudentAttendanceMgr.StudentAttendance
             if (MessageBox.Show("您确定要删除这条记录吗？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 //删除记录用的SQL语句
-                string deleteSql = String.Format("delete from StudentAttendances where AttendanceId = {0}", this.RecordId);
+                string deleteSql = String.Format("delete from CourseSchedules where ScheduleId = {0}", this.RecordId);
 
                 //执行删除操作
                 int deleteResult = DBHelper.executeDeleteSql(deleteSql);
@@ -362,9 +420,9 @@ namespace StudentAttendanceMgr.StudentAttendance
             if (this.AddOrEdit == 0)
             {
                 //检查后台数据库的 StudentAttendances 表中是否存在重复的记录
-                string selectSql = String.Format("select count(*) from StudentAttendances " +
-                    "where SchoolYear = '{0}' and Semester = '{1}' and Week = '{2}' and Weekday = '{3}' and SchoolTime = '{4}' and StuId = '{5}'",
-                    this.cboSchoolYear.Text, this.cboSemester.Text, this.cboWeek.Text, this.cboWeekday.Text, this.cboSchoolTime.Text, this.txtStuId.Text);
+                string selectSql = String.Format("select count(*) from CourseSchedules " +
+                    "where TeacherId = '{0}' and SchoolYear = '{1}' and Semester = '{2}' and Weekday = '{3}' and SchoolTime = '{4}' and dbo.getNumWeek(EndWeek) >= dbo.getNumWeek('{5}')",
+                    this.cboTeacherName.SelectedValue, this.cboSchoolYear.Text, this.cboSemester.Text, this.cboWeekday.Text, this.cboSchoolTime.Text, this.cboStartWeek.Text);
 
                 //执行查询操作
                 int result = (int)DBHelper.executeScalar(selectSql);
@@ -373,16 +431,24 @@ namespace StudentAttendanceMgr.StudentAttendance
                 if (result >= 1)
                 {
                     MessageBox.Show("该记录已存在，请重新输入！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.cboSchoolYear.Focus();
+                    this.cboCourseName.Focus();
                     return;
                 }
-
-
+                
+                
                 //添加记录用的SQL语句
-                string insertSql = String.Format("insert into StudentAttendances (SchoolYear, Semester, Week, Weekday, SchoolTime, CourseId, StuId, StatusId, Memo) " +
-                    "values ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}') ", 
-                    this.cboSchoolYear.Text, this.cboSemester.Text, this.cboWeek.Text, this.cboWeekday.Text, this.cboSchoolTime.Text,
-                    this.cboCourseName.SelectedValue, this.txtStuId.Text, this.cboAttendanceStatus.SelectedValue, this.txtMemo.Text);
+                string insertSql = String.Format("insert into CourseSchedules (CourseId, TeacherId, ClassId, RoomId, SchoolYear, Semester, Weekday, SchoolTime, StartWeek, EndWeek) " +
+                    "values ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}') ",
+                    this.cboCourseName.SelectedValue,
+                    this.cboTeacherName.SelectedValue,
+                    this.cboClassName.SelectedValue,
+                    this.cboRoomName.SelectedValue,
+                    this.cboSchoolYear.Text,
+                    this.cboSemester.Text,
+                    this.cboWeekday.Text,
+                    this.cboSchoolTime.Text,
+                    this.cboStartWeek.Text,
+                    this.cboEndWeek.Text);
 
                 //执行添加操作
                 int insertResult = DBHelper.executeInsertSql(insertSql);
@@ -406,10 +472,19 @@ namespace StudentAttendanceMgr.StudentAttendance
             if (this.AddOrEdit == 1)
             {
                 //修改记录用的SQL语句
-                string updateSql = String.Format("update StudentAttendances set SchoolYear = '{0}', Semester = '{1}', Week = '{2}', Weekday = '{3}', " +
-                    "SchoolTime = '{4}', CourseId = '{5}', StuId = '{6}', StatusId = '{7}', Memo = '{8}' where AttendanceId = {9}",
-                    this.cboSchoolYear.Text, this.cboSemester.Text, this.cboWeek.Text, this.cboWeekday.Text, this.cboSchoolTime.Text,
-                    this.cboCourseName.SelectedValue, this.txtStuId.Text, this.cboAttendanceStatus.SelectedValue, this.txtMemo.Text, this.RecordId);
+                string updateSql = String.Format("update CourseSchedules set CourseId = '{0}', TeacherId = '{1}', ClassId = '{2}', RoomId = '{3}', " +
+                    "SchoolYear = '{4}', Semester = '{5}', Weekday = '{6}', SchoolTime = '{7}', StartWeek = '{8}', EndWeek = '{9}' where ScheduleId = {10}",
+                    this.cboCourseName.SelectedValue,
+                    this.cboTeacherName.SelectedValue,
+                    this.cboClassName.SelectedValue,
+                    this.cboRoomName.SelectedValue,
+                    this.cboSchoolYear.Text,
+                    this.cboSemester.Text,
+                    this.cboWeekday.Text,
+                    this.cboSchoolTime.Text,
+                    this.cboStartWeek.Text,
+                    this.cboEndWeek.Text,
+                    this.RecordId);
 
                 //执行修改操作
                 int updateResult = DBHelper.executeUpdateSql(updateSql);
@@ -459,20 +534,35 @@ namespace StudentAttendanceMgr.StudentAttendance
                 //根据“查询条件组合框”中选择的项来决定按哪一列进行过滤
                 switch (this.cboCondition.Text)
                 {
-                    case "学年":
+                    case "课程名称":
                         {
                             //根据“查询值文本框”的值进行模糊查询
+                            dataView.RowFilter = String.Format("CourseName like '%{0}%'", this.txtCondition.Text);
+                            break;
+                        }
+                    case "上课教师":
+                        {
+                            dataView.RowFilter = String.Format("TeacherName like '%{0}%'", this.txtCondition.Text);
+                            break;
+                        }
+                    case "上课班级":
+                        {
+                            dataView.RowFilter = String.Format("ClassName like '%{0}%'", this.txtCondition.Text);
+                            break;
+                        }
+                    case "上课地点":
+                        {
+                            dataView.RowFilter = String.Format("RoomName like '%{0}%'", this.txtCondition.Text);
+                            break;
+                        }
+                    case "学年":
+                        {
                             dataView.RowFilter = String.Format("SchoolYear like '%{0}%'", this.txtCondition.Text);
                             break;
                         }
                     case "学期":
                         {
                             dataView.RowFilter = String.Format("Semester like '%{0}%'", this.txtCondition.Text);
-                            break;
-                        }
-                    case "周次":
-                        {
-                            dataView.RowFilter = String.Format("Week like '%{0}%'", this.txtCondition.Text);
                             break;
                         }
                     case "星期":
@@ -483,26 +573,6 @@ namespace StudentAttendanceMgr.StudentAttendance
                     case "节次":
                         {
                             dataView.RowFilter = String.Format("SchoolTime like '%{0}%'", this.txtCondition.Text);
-                            break;
-                        }
-                    case "课程名称":
-                        {
-                            dataView.RowFilter = String.Format("CourseName like '%{0}%'", this.txtCondition.Text);
-                            break;
-                        }
-                    case "学号":
-                        {
-                            dataView.RowFilter = String.Format("StuId like '%{0}%'", this.txtCondition.Text);
-                            break;
-                        }
-                    case "出勤状态":
-                        {
-                            dataView.RowFilter = String.Format("StatusName like '%{0}%'", this.txtCondition.Text);
-                            break;
-                        }
-                    case "备注":
-                        {
-                            dataView.RowFilter = String.Format("Memo like '%{0}%'", this.txtCondition.Text);
                             break;
                         }
                     default:
