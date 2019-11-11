@@ -1,0 +1,11 @@
+C:\Users\hp\Desktop\西柚考勤系统\源代码\StudentAttendanceMgr\AttendanceHelperUnitTest\bin\Debug\AttendanceHelperUnitTest.dll
+C:\Users\hp\Desktop\西柚考勤系统\源代码\StudentAttendanceMgr\AttendanceHelperUnitTest\bin\Debug\AttendanceHelperUnitTest.pdb
+C:\Users\hp\Desktop\西柚考勤系统\源代码\StudentAttendanceMgr\AttendanceHelperUnitTest\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\hp\Desktop\西柚考勤系统\源代码\StudentAttendanceMgr\AttendanceHelperUnitTest\bin\Debug\学生考勤管理系统.exe
+C:\Users\hp\Desktop\西柚考勤系统\源代码\StudentAttendanceMgr\AttendanceHelperUnitTest\bin\Debug\IrisSkin2.dll
+C:\Users\hp\Desktop\西柚考勤系统\源代码\StudentAttendanceMgr\AttendanceHelperUnitTest\bin\Debug\BSE.Windows.Forms.dll
+C:\Users\hp\Desktop\西柚考勤系统\源代码\StudentAttendanceMgr\AttendanceHelperUnitTest\bin\Debug\学生考勤管理系统.pdb
+C:\Users\hp\Desktop\西柚考勤系统\源代码\StudentAttendanceMgr\AttendanceHelperUnitTest\bin\Debug\zh-Hans\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
+C:\Users\hp\Desktop\西柚考勤系统\源代码\StudentAttendanceMgr\AttendanceHelperUnitTest\obj\Debug\AttendanceHelperUnitTest.csprojResolveAssemblyReference.cache
+C:\Users\hp\Desktop\西柚考勤系统\源代码\StudentAttendanceMgr\AttendanceHelperUnitTest\obj\Debug\AttendanceHelperUnitTest.dll
+C:\Users\hp\Desktop\西柚考勤系统\源代码\StudentAttendanceMgr\AttendanceHelperUnitTest\obj\Debug\AttendanceHelperUnitTest.pdb
