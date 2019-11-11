@@ -8,9 +8,9 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using StudentAttendanceMgr.CommonClass;
 
-namespace StudentAttendanceMgr.StudentAttendance
+namespace StudentAttendanceMgr.StudentInfo
 {
-    public partial class frmViewAttendanceInfo : Form
+    public partial class frmViewStudentInfo : Form
     {
         //数据集
         private DataSet dataSet;
@@ -21,7 +21,7 @@ namespace StudentAttendanceMgr.StudentAttendance
         //定义 BindingSource 对象
         private BindingSource bindSource;
         
-        public frmViewAttendanceInfo()
+        public frmViewStudentInfo()
         {
             InitializeComponent();
         }
@@ -32,19 +32,19 @@ namespace StudentAttendanceMgr.StudentAttendance
             try
             {
                 //查询记录用的SQL语句
-                string selectSql = String.Format("select SchoolYear, Semester, Week, Weekday, SchoolTime, CourseName, StuName, StatusName, Memo " +
-                    "from StudentAttendances sa, Courses c, Students s, AttendanceStatus status, Classes cls " +
-                    "where sa.CourseId = c.CourseId and sa.StuId = s.StuId and sa.StatusId = status.StatusId and s.ClassId = cls.ClassId and cls.ClassId = '{0}' " +
-                    "order by SchoolYear desc, Semester desc, CourseName asc, StatusName asc", ClassId);
+                string selectSql = String.Format("select StuId, StuName, StuPwd, Sex, DormName, Telephone, HomeAddress, HomePhone " +
+                    "from Students s, Classes c, Dorms d " +
+                    "where s.ClassId = c.ClassId and s.DormId = d.DormId and s.ClassId = '{0}' " +
+                    "order by StuId asc", ClassId);
 
                 //清空数据集
-                dataSet.Tables["StudentAttendances"].Clear();
+                dataSet.Tables["Students"].Clear();
 
                 //填充数据集
-                dataSet = DBHelper.getDataSet(selectSql, "StudentAttendances");
+                dataSet = DBHelper.getDataSet(selectSql, "Students");
 
                 //指定 DataView 的基础表
-                dataView.Table = dataSet.Tables["StudentAttendances"];
+                dataView.Table = dataSet.Tables["Students"];
             }
             catch (Exception ex)
             {
@@ -58,10 +58,10 @@ namespace StudentAttendanceMgr.StudentAttendance
             try
             {
                 //清空TreeView控件的所有节点
-                this.tvAttendanceInfo.Nodes.Clear();
+                this.tvStudentInfo.Nodes.Clear();
 
                 //在TreeView控件中添加一个根节点
-                TreeNode rootNode = this.tvAttendanceInfo.Nodes.Add("长沙民政职业技术学院");
+                TreeNode rootNode = this.tvStudentInfo.Nodes.Add("西南石油大学");
 
                 //查询院系信息
                 string selectSql_Departments = "select DepId, DepName from Departments order by DepId asc";
@@ -81,7 +81,7 @@ namespace StudentAttendanceMgr.StudentAttendance
                     string DepId = sdrDepartments["DepId"].ToString();
                     string DepName = sdrDepartments["DepName"].ToString();
 
-                    //在“长沙民政职业技术学院”根节点下，添加“院系”子节点
+                    //在“西南石油大学”根节点下，添加“院系”子节点
                     TreeNode subNode = rootNode.Nodes.Add(DepName);
                     subNode.Tag = DepId;
                 }
@@ -174,7 +174,7 @@ namespace StudentAttendanceMgr.StudentAttendance
         }
 
         // 窗体加载
-        private void frmViewAttendanceInfo_Load(object sender, EventArgs e)
+        private void frmViewStudentInfo_Load(object sender, EventArgs e)
         {
             // 初始化树形视图控件
             this.FillTreeView();
@@ -182,28 +182,28 @@ namespace StudentAttendanceMgr.StudentAttendance
             try
             {
                 //查询记录用的SQL语句
-                string selectSql = "select SchoolYear, Semester, Week, Weekday, SchoolTime, CourseName, StuName, StatusName, Memo " +
-                    "from StudentAttendances sa, Courses c, Students s, AttendanceStatus status, Classes cls " +
-                    "where sa.CourseId = c.CourseId and sa.StuId = s.StuId and sa.StatusId = status.StatusId and s.ClassId = cls.ClassId and 1 = 0 " +
-                    "order by SchoolYear desc, Semester desc, CourseName asc, StatusName asc";
+                string selectSql = "select StuId, StuName, StuPwd, Sex, DormName, Telephone, HomeAddress, HomePhone " +
+                    "from Students s, Classes c, Dorms d " +
+                    "where s.ClassId = c.ClassId and s.DormId = d.DormId and 1 = 0 " +
+                    "order by StuId asc";
 
                 //创建数据集 DataSet 对象
                 dataSet = new DataSet("Attendance");
 
                 //填充数据集
-                dataSet = DBHelper.getDataSet(selectSql, "StudentAttendances");
+                dataSet = DBHelper.getDataSet(selectSql, "Students");
 
                 //创建数据视图 DataView 对象
                 dataView = new DataView();
 
                 //指定 DataView 的基础表
-                dataView.Table = dataSet.Tables["StudentAttendances"];
+                dataView.Table = dataSet.Tables["Students"];
 
                 //创建 BindingSource 对象，将 BindingSource 组件绑定到数据视图。
                 bindSource = new BindingSource(dataView, "");
 
                 //建立复杂数据绑定，将 DataGridView 控件绑定到 BindingSource组件。
-                this.dgvAttendanceInfo.DataSource = bindSource;
+                this.dgvStudent.DataSource = bindSource;
 
                 //将 BindingNavigator 控件和 BindingSource 组件关联起来
                 this.bindingNavigator1.BindingSource = bindSource;
@@ -214,12 +214,12 @@ namespace StudentAttendanceMgr.StudentAttendance
             }
         }
 
-        // 在树形视图控件中，选中某一个节点后，显示相应的学生出勤信息。
-        private void tvAttendanceInfo_AfterSelect(object sender, TreeViewEventArgs e)
+        // 在树形视图控件中，选中某一个节点后，显示相应的学生信息。
+        private void tvStudentInfo_AfterSelect(object sender, TreeViewEventArgs e)
         {
             try
             {
-                //如果选中了“班级”节点，显示出当前班级的所有学生的出勤信息。
+                //如果选中了“班级”节点，显示出当前班级的所有学生信息。
                 if (e.Node.Nodes.Count <= 0 && e.Node.Parent != null)
                 {
                     string ClassId = e.Node.Tag.ToString();
@@ -229,7 +229,7 @@ namespace StudentAttendanceMgr.StudentAttendance
                 else
                 {
                     //清空数据集
-                    dataSet.Tables["StudentAttendances"].Clear();
+                    dataSet.Tables["Students"].Clear();
                 }
             }
             catch (Exception ex)
@@ -254,50 +254,45 @@ namespace StudentAttendanceMgr.StudentAttendance
                 //根据“查询条件组合框”中选择的项来决定按哪一列进行过滤
                 switch (this.cboCondition.Text)
                 {
-                    case "学年":
+                    case "学号":
                         {
                             //根据“查询值文本框”的值进行模糊查询
-                            dataView.RowFilter = String.Format("SchoolYear like '%{0}%'", this.txtCondition.Text);
+                            dataView.RowFilter = String.Format("StuId like '%{0}%'", this.txtCondition.Text);
                             break;
                         }
-                    case "学期":
-                        {
-                            dataView.RowFilter = String.Format("Semester like '%{0}%'", this.txtCondition.Text);
-                            break;
-                        }
-                    case "周次":
-                        {
-                            dataView.RowFilter = String.Format("Week like '%{0}%'", this.txtCondition.Text);
-                            break;
-                        }
-                    case "星期":
-                        {
-                            dataView.RowFilter = String.Format("Weekday like '%{0}%'", this.txtCondition.Text);
-                            break;
-                        }
-                    case "节次":
-                        {
-                            dataView.RowFilter = String.Format("SchoolTime like '%{0}%'", this.txtCondition.Text);
-                            break;
-                        }
-                    case "课程名称":
-                        {
-                            dataView.RowFilter = String.Format("CourseName like '%{0}%'", this.txtCondition.Text);
-                            break;
-                        }
-                    case "学生姓名":
+                    case "姓名":
                         {
                             dataView.RowFilter = String.Format("StuName like '%{0}%'", this.txtCondition.Text);
                             break;
                         }
-                    case "出勤状态":
+                    case "密码":
                         {
-                            dataView.RowFilter = String.Format("StatusName like '%{0}%'", this.txtCondition.Text);
+                            dataView.RowFilter = String.Format("StuPwd like '%{0}%'", this.txtCondition.Text);
                             break;
                         }
-                    case "备注":
+                    case "性别":
                         {
-                            dataView.RowFilter = String.Format("Memo like '%{0}%'", this.txtCondition.Text);
+                            dataView.RowFilter = String.Format("Sex like '%{0}%'", this.txtCondition.Text);
+                            break;
+                        }
+                    case "宿舍名称":
+                        {
+                            dataView.RowFilter = String.Format("DormName like '%{0}%'", this.txtCondition.Text);
+                            break;
+                        }
+                    case "联系电话":
+                        {
+                            dataView.RowFilter = String.Format("Telephone like '%{0}%'", this.txtCondition.Text);
+                            break;
+                        }
+                    case "家庭住址":
+                        {
+                            dataView.RowFilter = String.Format("HomeAddress like '%{0}%'", this.txtCondition.Text);
+                            break;
+                        }
+                    case "家庭电话":
+                        {
+                            dataView.RowFilter = String.Format("HomePhone like '%{0}%'", this.txtCondition.Text);
                             break;
                         }
                     default:
@@ -318,11 +313,11 @@ namespace StudentAttendanceMgr.StudentAttendance
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             // 获取树形视图控件中的当前节点
-            TreeNode currentNode = this.tvAttendanceInfo.SelectedNode;
+            TreeNode currentNode = this.tvStudentInfo.SelectedNode;
 
             try
             {
-                //如果选中了“班级”节点，显示出当前班级的所有学生的出勤信息。
+                //如果选中了“班级”节点，显示出当前班级的所有学生信息。
                 if (currentNode.Nodes.Count <= 0 && currentNode.Parent != null)
                 {
                     string ClassId = currentNode.Tag.ToString();

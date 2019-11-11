@@ -1,6 +1,6 @@
-﻿namespace StudentAttendanceMgr.StudentAttendance
+﻿namespace StudentAttendanceMgr.TeacherInfo
 {
-    partial class frmViewAttendanceInfo
+    partial class frmViewTeacherInfo
     {
         /// <summary>
         /// 必需的设计器变量。
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmViewAttendanceInfo));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmViewTeacherInfo));
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMovePreviousItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
@@ -46,28 +46,25 @@
             this.cboCondition = new System.Windows.Forms.ToolStripComboBox();
             this.bindingNavigatorPositionItem = new System.Windows.Forms.ToolStripTextBox();
             this.splitContainerCourseScheduleInfo = new System.Windows.Forms.SplitContainer();
-            this.tvAttendanceInfo = new System.Windows.Forms.TreeView();
+            this.tvTeacherInfo = new System.Windows.Forms.TreeView();
             this.statusStripDesc = new System.Windows.Forms.StatusStrip();
             this.tsslblDesc = new System.Windows.Forms.ToolStripStatusLabel();
             this.btnRefresh = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigator1 = new System.Windows.Forms.BindingNavigator(this.components);
-            this.dgvAttendanceInfo = new System.Windows.Forms.DataGridView();
-            this.SchoolYear = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Semester = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Week = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Weekday = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SchoolTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CourseName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StuName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StatusName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Memo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvTeacher = new System.Windows.Forms.DataGridView();
+            this.TeacherId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TeacherName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TeacherPwd = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Sex = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.OfficeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Telephone = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.splitContainerCourseScheduleInfo.Panel1.SuspendLayout();
             this.splitContainerCourseScheduleInfo.Panel2.SuspendLayout();
             this.splitContainerCourseScheduleInfo.SuspendLayout();
             this.statusStripDesc.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
             this.bindingNavigator1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvAttendanceInfo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTeacher)).BeginInit();
             this.SuspendLayout();
             // 
             // bindingNavigatorMoveFirstItem
@@ -164,15 +161,12 @@
             // cboCondition
             // 
             this.cboCondition.Items.AddRange(new object[] {
-            "学年",
-            "学期",
-            "周次",
-            "星期",
-            "节次",
-            "课程名称",
-            "学生姓名",
-            "出勤状态",
-            "备注"});
+            "工号",
+            "姓名",
+            "密码",
+            "性别",
+            "办公室名称",
+            "联系电话"});
             this.cboCondition.Name = "cboCondition";
             this.cboCondition.Size = new System.Drawing.Size(121, 25);
             // 
@@ -193,24 +187,24 @@
             // 
             // splitContainerCourseScheduleInfo.Panel1
             // 
-            this.splitContainerCourseScheduleInfo.Panel1.Controls.Add(this.tvAttendanceInfo);
+            this.splitContainerCourseScheduleInfo.Panel1.Controls.Add(this.tvTeacherInfo);
             // 
             // splitContainerCourseScheduleInfo.Panel2
             // 
-            this.splitContainerCourseScheduleInfo.Panel2.Controls.Add(this.dgvAttendanceInfo);
+            this.splitContainerCourseScheduleInfo.Panel2.Controls.Add(this.dgvTeacher);
             this.splitContainerCourseScheduleInfo.Size = new System.Drawing.Size(794, 521);
             this.splitContainerCourseScheduleInfo.SplitterDistance = 249;
             this.splitContainerCourseScheduleInfo.TabIndex = 20;
             // 
-            // tvAttendanceInfo
+            // tvTeacherInfo
             // 
-            this.tvAttendanceInfo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tvAttendanceInfo.ItemHeight = 16;
-            this.tvAttendanceInfo.Location = new System.Drawing.Point(0, 0);
-            this.tvAttendanceInfo.Name = "tvAttendanceInfo";
-            this.tvAttendanceInfo.Size = new System.Drawing.Size(249, 521);
-            this.tvAttendanceInfo.TabIndex = 2;
-            this.tvAttendanceInfo.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvAttendanceInfo_AfterSelect);
+            this.tvTeacherInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tvTeacherInfo.ItemHeight = 16;
+            this.tvTeacherInfo.Location = new System.Drawing.Point(0, 0);
+            this.tvTeacherInfo.Name = "tvTeacherInfo";
+            this.tvTeacherInfo.Size = new System.Drawing.Size(249, 521);
+            this.tvTeacherInfo.TabIndex = 2;
+            this.tvTeacherInfo.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvTeacherInfo_AfterSelect);
             // 
             // statusStripDesc
             // 
@@ -272,103 +266,75 @@
             this.bindingNavigator1.TabIndex = 18;
             this.bindingNavigator1.Text = "bindingNavigator1";
             // 
-            // dgvAttendanceInfo
+            // dgvTeacher
             // 
-            this.dgvAttendanceInfo.AllowUserToAddRows = false;
-            this.dgvAttendanceInfo.AllowUserToDeleteRows = false;
-            this.dgvAttendanceInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvAttendanceInfo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.SchoolYear,
-            this.Semester,
-            this.Week,
-            this.Weekday,
-            this.SchoolTime,
-            this.CourseName,
-            this.StuName,
-            this.StatusName,
-            this.Memo});
-            this.dgvAttendanceInfo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvAttendanceInfo.Location = new System.Drawing.Point(0, 0);
-            this.dgvAttendanceInfo.MultiSelect = false;
-            this.dgvAttendanceInfo.Name = "dgvAttendanceInfo";
-            this.dgvAttendanceInfo.ReadOnly = true;
-            this.dgvAttendanceInfo.RowTemplate.Height = 23;
-            this.dgvAttendanceInfo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvAttendanceInfo.Size = new System.Drawing.Size(541, 521);
-            this.dgvAttendanceInfo.TabIndex = 17;
+            this.dgvTeacher.AllowUserToAddRows = false;
+            this.dgvTeacher.AllowUserToDeleteRows = false;
+            this.dgvTeacher.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvTeacher.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.TeacherId,
+            this.TeacherName,
+            this.TeacherPwd,
+            this.Sex,
+            this.OfficeName,
+            this.Telephone});
+            this.dgvTeacher.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvTeacher.Location = new System.Drawing.Point(0, 0);
+            this.dgvTeacher.MultiSelect = false;
+            this.dgvTeacher.Name = "dgvTeacher";
+            this.dgvTeacher.ReadOnly = true;
+            this.dgvTeacher.RowTemplate.Height = 23;
+            this.dgvTeacher.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvTeacher.Size = new System.Drawing.Size(541, 521);
+            this.dgvTeacher.TabIndex = 20;
             // 
-            // SchoolYear
+            // TeacherId
             // 
-            this.SchoolYear.DataPropertyName = "SchoolYear";
-            this.SchoolYear.HeaderText = "学年";
-            this.SchoolYear.Name = "SchoolYear";
-            this.SchoolYear.ReadOnly = true;
-            this.SchoolYear.Width = 80;
+            this.TeacherId.DataPropertyName = "TeacherId";
+            this.TeacherId.HeaderText = "工号";
+            this.TeacherId.Name = "TeacherId";
+            this.TeacherId.ReadOnly = true;
             // 
-            // Semester
+            // TeacherName
             // 
-            this.Semester.DataPropertyName = "Semester";
-            this.Semester.HeaderText = "学期";
-            this.Semester.Name = "Semester";
-            this.Semester.ReadOnly = true;
-            this.Semester.Width = 80;
+            this.TeacherName.DataPropertyName = "TeacherName";
+            this.TeacherName.HeaderText = "姓名";
+            this.TeacherName.Name = "TeacherName";
+            this.TeacherName.ReadOnly = true;
+            this.TeacherName.Width = 80;
             // 
-            // Week
+            // TeacherPwd
             // 
-            this.Week.DataPropertyName = "Week";
-            this.Week.HeaderText = "周次";
-            this.Week.Name = "Week";
-            this.Week.ReadOnly = true;
-            this.Week.Width = 80;
+            this.TeacherPwd.DataPropertyName = "TeacherPwd";
+            this.TeacherPwd.HeaderText = "密码";
+            this.TeacherPwd.Name = "TeacherPwd";
+            this.TeacherPwd.ReadOnly = true;
             // 
-            // Weekday
+            // Sex
             // 
-            this.Weekday.DataPropertyName = "Weekday";
-            this.Weekday.HeaderText = "星期";
-            this.Weekday.Name = "Weekday";
-            this.Weekday.ReadOnly = true;
-            this.Weekday.Width = 80;
+            this.Sex.DataPropertyName = "Sex";
+            this.Sex.HeaderText = "性别";
+            this.Sex.Name = "Sex";
+            this.Sex.ReadOnly = true;
+            this.Sex.Width = 60;
             // 
-            // SchoolTime
+            // OfficeName
             // 
-            this.SchoolTime.DataPropertyName = "SchoolTime";
-            this.SchoolTime.HeaderText = "节次";
-            this.SchoolTime.Name = "SchoolTime";
-            this.SchoolTime.ReadOnly = true;
-            this.SchoolTime.Width = 80;
+            this.OfficeName.DataPropertyName = "OfficeName";
+            this.OfficeName.HeaderText = "办公室名称";
+            this.OfficeName.Name = "OfficeName";
+            this.OfficeName.ReadOnly = true;
+            this.OfficeName.Width = 160;
             // 
-            // CourseName
+            // Telephone
             // 
-            this.CourseName.DataPropertyName = "CourseName";
-            this.CourseName.HeaderText = "课程名称";
-            this.CourseName.Name = "CourseName";
-            this.CourseName.ReadOnly = true;
-            this.CourseName.Width = 120;
+            this.Telephone.DataPropertyName = "Telephone";
+            this.Telephone.HeaderText = "联系电话";
+            this.Telephone.Name = "Telephone";
+            this.Telephone.ReadOnly = true;
+            this.Telephone.Width = 120;
             // 
-            // StuName
-            // 
-            this.StuName.DataPropertyName = "StuName";
-            this.StuName.HeaderText = "学生姓名";
-            this.StuName.Name = "StuName";
-            this.StuName.ReadOnly = true;
-            this.StuName.Width = 80;
-            // 
-            // StatusName
-            // 
-            this.StatusName.DataPropertyName = "StatusName";
-            this.StatusName.HeaderText = "出勤状态";
-            this.StatusName.Name = "StatusName";
-            this.StatusName.ReadOnly = true;
-            this.StatusName.Width = 80;
-            // 
-            // Memo
-            // 
-            this.Memo.DataPropertyName = "Memo";
-            this.Memo.HeaderText = "备注";
-            this.Memo.Name = "Memo";
-            this.Memo.ReadOnly = true;
-            // 
-            // frmViewAttendanceInfo
+            // frmViewTeacherInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -379,10 +345,10 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.Name = "frmViewAttendanceInfo";
+            this.Name = "frmViewTeacherInfo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "学生出勤信息查看";
-            this.Load += new System.EventHandler(this.frmViewAttendanceInfo_Load);
+            this.Text = "教师信息查看";
+            this.Load += new System.EventHandler(this.frmViewTeacherInfo_Load);
             this.splitContainerCourseScheduleInfo.Panel1.ResumeLayout(false);
             this.splitContainerCourseScheduleInfo.Panel2.ResumeLayout(false);
             this.splitContainerCourseScheduleInfo.ResumeLayout(false);
@@ -391,7 +357,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).EndInit();
             this.bindingNavigator1.ResumeLayout(false);
             this.bindingNavigator1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvAttendanceInfo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTeacher)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -415,20 +381,17 @@
         public System.Windows.Forms.ToolStripComboBox cboCondition;
         public System.Windows.Forms.ToolStripTextBox bindingNavigatorPositionItem;
         private System.Windows.Forms.SplitContainer splitContainerCourseScheduleInfo;
-        private System.Windows.Forms.TreeView tvAttendanceInfo;
+        private System.Windows.Forms.TreeView tvTeacherInfo;
         private System.Windows.Forms.StatusStrip statusStripDesc;
         private System.Windows.Forms.ToolStripStatusLabel tsslblDesc;
         public System.Windows.Forms.ToolStripButton btnRefresh;
         public System.Windows.Forms.BindingNavigator bindingNavigator1;
-        public System.Windows.Forms.DataGridView dgvAttendanceInfo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SchoolYear;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Semester;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Week;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Weekday;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SchoolTime;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CourseName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn StuName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn StatusName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Memo;
+        public System.Windows.Forms.DataGridView dgvTeacher;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TeacherId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TeacherName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TeacherPwd;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Sex;
+        private System.Windows.Forms.DataGridViewTextBoxColumn OfficeName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Telephone;
     }
 }
